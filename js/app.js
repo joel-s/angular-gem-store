@@ -6,10 +6,22 @@
         this.products = gems;
     });
 
+    app.controller('TabController', function() {
+        this.tab = 1;
+
+        this.select = function(sel) {
+            this.tab = sel;
+        };
+
+        this.isSelected = function(sel) {
+            return this.tab === sel;
+        };
+    });
+
     var gems = [
         {
             name: 'Dodecahedron',
-            price: 2.95,
+            price: 2.00,
             description: '. . .',
             canPurchase: false,
             soldOut: false,
