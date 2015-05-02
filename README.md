@@ -1,6 +1,6 @@
 
-angular-gem-app
-===============
+angular-gem-store
+=================
 
 I am starting this project as I work through the CodeSchool "Shaping Up With
 AngularJS" tutorial:
