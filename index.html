@@ -3,6 +3,11 @@
   <head>
     <link rel="stylesheet" type="text/css" 
           href="bootstrap/css/bootstrap.min.css" />
+    <style>
+      .main {
+          padding: 20px;
+      }
+    </style>
   </head>
   <body ng-controller="StoreController as store">
     <script src="js/angular.min.js"></script>
@@ -15,7 +20,7 @@
       I am approximately {{2015-1976}} years old.
     </p>
 
-    <div ng-repeat="product in store.products">
+    <div ng-repeat="product in store.products" class="main">
       <div ng-hide="product.soldOut">
         <h1> {{product.name}} </h1>
         <h2> {{product.price | currency}} </h2>
@@ -43,8 +48,33 @@
         </div>
         <div class="panel" ng-show="tab.isSelected(3)">
           <h4>Reviews</h4>
-          <blockquote>None yet</blockquote>
-        </div>
+
+          <blockquote ng-repeat="review in product.reviews">
+              <b>Stars: {{review.stars}}</b><br/>
+              {{review.body}}<br/>
+              <cite>by: {{review.author}}</cite>
+          </blockquote>
+
+          <form name="reviewForm">
+            <blockquote>
+              <b>Stars: {{review.stars}}</b><br/>
+              {{review.body}}<br/>
+              <cite>by: {{review.author}}</cite>
+            </blockquote>
+            <blockquote>
+              <select ng-model="review.stars">
+                <option value="1">1 star</option>
+                <option value="2">2 stars</option>
+                <option value="3">3 stars</option>
+                <option value="4">4 stars</option>
+                <option value="5">5 stars</option>
+              </select><br/>
+              <textarea ng-model="review.body" placeholder="Your review"></textarea><br/>
+              <label>by:</label>
+              <input ng-model="review.author" type="email"/>
+              <input type="submit" value="Submit"/>
+            </blockquote>
+        </form>
 
       </section>
     </div>

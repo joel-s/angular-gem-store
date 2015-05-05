@@ -25,6 +25,18 @@
             description: '. . .',
             canPurchase: false,
             soldOut: false,
+            reviews: [
+                {
+                    stars: 5,
+                    body: "I love this product!",
+                    author: "jd@sausage.com",
+                },
+                {
+                    stars: 2,
+                    body: "Somewhat lame",
+                    author: "lamer@sample.com",
+                },
+            ],
         },
         {
             name: 'Cube',
