@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html ng-app="store">
   <head>
-    <link rel="stylesheet" type="text/css" 
+    <link rel="stylesheet" type="text/css"
           href="bootstrap/css/bootstrap.min.css" />
-    <style>
-      .main {
-          padding: 20px;
-      }
-    </style>
+    <link rel="stylesheet" type="text/css"
+          href="css/style.css" />
   </head>
   <body ng-controller="StoreController as store">
     <script src="js/angular.min.js"></script>
@@ -30,11 +27,11 @@
 
       <section ng-controller="TabController as tab">
         <ul class="nav nav-pills">
-          <li ng-class="{ active: tab.isSelected(1) }"> 
+          <li ng-class="{ active: tab.isSelected(1) }">
             <a href ng-click="tab.select(1)">Description</a> </li>
-          <li ng-class="{ active: tab.isSelected(2) }"> 
+          <li ng-class="{ active: tab.isSelected(2) }">
             <a href ng-click="tab.select(2)">Specifications</a> </li>
-          <li ng-class="{ active: tab.isSelected(3) }"> 
+          <li ng-class="{ active: tab.isSelected(3) }">
             <a href ng-click="tab.select(3)">Reviews</a> </li>
         </ul>
 
@@ -52,27 +49,38 @@
           <blockquote ng-repeat="review in product.reviews">
               <b>Stars: {{review.stars}}</b><br/>
               {{review.body}}<br/>
-              <cite>by: {{review.author}}</cite>
+              <cite>
+                by: {{review.author}} 
+                on {{review.createdOn | date}}
+              </cite>
           </blockquote>
 
-          <form name="reviewForm">
+          <form name="reviewForm"
+                ng-controller="ReviewController as reviewCtrl"
+                ng-submit="reviewForm.$valid && reviewCtrl.addReview(product)"
+                novalidate> <!-- We want Angular validations, not HTML ones -->
             <blockquote>
-              <b>Stars: {{review.stars}}</b><br/>
-              {{review.body}}<br/>
-              <cite>by: {{review.author}}</cite>
+              <b>Stars: {{reviewCtrl.review.stars}}</b><br/>
+              {{reviewCtrl.review.body}}<br/>
+              <cite>
+                by: {{reviewCtrl.review.author}}
+              </cite>
             </blockquote>
             <blockquote>
-              <select ng-model="review.stars">
+              <select ng-model="reviewCtrl.review.stars" required>
+                <option value="">Select number of stars</option>
                 <option value="1">1 star</option>
                 <option value="2">2 stars</option>
                 <option value="3">3 stars</option>
                 <option value="4">4 stars</option>
                 <option value="5">5 stars</option>
               </select><br/>
-              <textarea ng-model="review.body" placeholder="Your review"></textarea><br/>
+              <textarea ng-model="reviewCtrl.review.body"
+                        placeholder="Your review" required></textarea><br/>
               <label>by:</label>
-              <input ng-model="review.author" type="email"/>
-              <input type="submit" value="Submit"/>
+              <input ng-model="reviewCtrl.review.author" type="email"
+                     required/><br/>
+              <input type="submit" value="Submit" />
             </blockquote>
         </form>
 
